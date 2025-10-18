@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WebVerse PRO — CodeVerse</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent-a:#5ef0ff;
+  --accent-b:#8b5cf6;
+  --muted:#9fb3c8;
+  --panel:rgba(255,255,255,0.05);
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{
+  height:100%;
+  overflow:hidden;
+  font-family:'Inter',sans-serif;
+  color:#eafcff;
+}
+
+/* 🌈 Fundo gradiente animado */
+body {
+  background: linear-gradient(270deg, #050715, #0b1e44, #5ef0ff, #8b5cf6);
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
+}
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* layout geral */
+body{display:flex;gap:16px;padding:16px;transition:.3s;}
+.sidebar{
+  width:240px;flex-shrink:0;
+  background:rgba(15,20,40,0.8);
+  border:1px solid rgba(94,240,255,0.25);
+  backdrop-filter:blur(10px);
+  border-radius:16px;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+.brand{display:flex;align-items:center;gap:10px;}
+.logo{
+  width:44px;height:44px;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent-b),var(--accent-a));
+  display:flex;align-items:center;justify-content:center;
+  color:#050715;font-weight:700;
+}
+.brand h1{font-size:17px;margin:0;}
+.brand p{font-size:12px;color:var(--muted);}
+nav{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
+nav a{
+  color:var(--muted);text-decoration:none;padding:10px;border-radius:10px;
+  transition:.3s;font-weight:600;
+}
+nav a:hover{background:rgba(255,255,255,0.05);color:var(--accent-a);}
+nav a.active{background:linear-gradient(90deg,var(--accent-a),var(--accent-b));color:#050715;}
+.sidebar .footer{font-size:13px;color:var(--muted);display:flex;justify-content:space-between;}
+
+/* main */
+main{
+  flex:1;
+  background:rgba(255,255,255,0.05);
+  border-radius:16px;
+  padding:20px;
+  overflow:auto;
+  backdrop-filter:blur(6px);
+  display:flex;
+  flex-direction:column;
+}
+main h2{margin-bottom:10px;font-size:18px;text-align:center;}
+
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:14px;
+}
+button.primary{
+  background:linear-gradient(90deg,var(--accent-a),var(--accent-b));
+  border:none;border-radius:8px;color:#050715;font-weight:700;
+  cursor:pointer;padding:8px 14px;transition:.3s;
+}
+button.primary:hover{box-shadow:0 0 8px var(--accent-a);}
+select{
+  border:1px solid var(--accent-a);
+  background:rgba(255,255,255,0.05);
+  color:#eafcff;border-radius:6px;padding:6px 8px;
+}
+
+.builder{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:16px;flex:1;min-height:0;
+}
+.panel{
+  background:rgba(255,255,255,0.03);
+  border-radius:12px;
+  padding:10px;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+label{font-weight:600;margin:6px 0 4px;}
+textarea{
+  flex:1;
+  background:#060a14;
+  border:1px solid rgba(94,240,255,0.25);
+  border-radius:8px;
+  color:#eafcff;
+  padding:8px;
+  font-family:monospace;
+  font-size:13px;
+  resize:none;
+}
+iframe{
+  width:100%;height:100%;border:0;border-radius:12px;background:white;
+}
+
+/* botão menu mobile */
+.menu-btn{
+  display:none;
+  background:linear-gradient(90deg,var(--accent-a),var(--accent-b));
+  color:#050715;border:none;border-radius:8px;
+  padding:8px 12px;font-weight:700;
+}
+
+/* mobile */
+@media (max-width:900px){
+  body{flex-direction:column;padding:10px;}
+  .sidebar{
+    width:100%;flex-direction:column;
+    border-radius:12px;padding:10px;margin-bottom:10px;
+    display:none;
+  }
+  .sidebar.active{display:flex;}
+  .menu-btn{display:block;margin:0 auto 10px;}
+  .builder{grid-template-columns:1fr;}
+  main h2{font-size:16px;}
+  textarea{min-height:100px;}
+  iframe{min-height:250px;}
+}
+</style>
+</head>
+<body>
+
+<!-- botão menu -->
+<button class="menu-btn" id="menuToggle">☰ Menu</button>
+
+<!-- menu lateral -->
+<aside class="sidebar" id="sidebar">
+  <div>
+    <div class="brand">
+      <div class="logo">CV</div>
+      <div><h1>CodeVerse Pro</h1><p>WebVerse PRO</p></div>
+    </div>
+    <nav>
+      <a href="inicial.index.html">Início</a>
+      <a href="aprendizado.index.html">Aprendizado</a>
+      <a href="Mentor.index.html">Mentor IA</a>
+      <a href="#" class="active">WebVerse</a>
+      <a href="codestudio.index.html">Code Studio</a>
+    </nav>
+  </div>
+  <div class="footer"><span>visitante</span><span id="timeNow">--:--:--</span></div>
+</aside>
+
+<!-- área principal -->
+<main>
+  <h2>WebVerse PRO — Crie com IA ou manualmente</h2>
+
+  <div class="toolbar">
+    <button id="aiBtn" class="primary">✨ Gerar com IA</button>
+    <button id="runBtn" class="primary">▶️ Executar</button>
+    <button id="saveBtn" class="primary">💾 Salvar</button>
+    <button id="manageBtn" class="primary">📁 Projetos</button>
+    <button id="downloadBtn" class="primary">⬇️ Baixar HTML</button>
+  </div>
+
+  <div class="builder">
+    <div class="panel">
+      <label>HTML</label><textarea id="htmlCode"></textarea>
+      <label>CSS</label><textarea id="cssCode"></textarea>
+      <label>JavaScript</label><textarea id="jsCode"></textarea>
+    </div>
+    <div class="panel"><iframe id="preview"></iframe></div>
+  </div>
+</main>
+
+<script>
+document.getElementById('menuToggle').onclick=()=>document.getElementById('sidebar').classList.toggle('active');
+
+function pad(n){return n<10?'0'+n:n;}
+function updateTime(){
+  const d=new Date();
+  document.getElementById('timeNow').textContent=`${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+}
+setInterval(updateTime,1000);updateTime();
+
+const htmlCode=document.getElementById('htmlCode'),
+      cssCode=document.getElementById('cssCode'),
+      jsCode=document.getElementById('jsCode'),
+      preview=document.getElementById('preview');
+
+function runCode(){
+  preview.srcdoc=`<style>${cssCode.value}</style>${htmlCode.value}<script>${jsCode.value}<\/script>`;
+}
+
+function saveProject(){
+  localStorage.setItem('cv_html',htmlCode.value);
+  localStorage.setItem('cv_css',cssCode.value);
+  localStorage.setItem('cv_js',jsCode.value);
+  alert("✅ Projeto salvo!");
+}
+
+function downloadHTML(){
+  const blob=new Blob(
+    [`<!doctype html><html><head><meta charset='utf-8'><style>${cssCode.value}</style></head><body>${htmlCode.value}<script>${jsCode.value}<\/script></body></html>`],
+    {type:'text/html'}
+  );
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='index.html';
+  a.click();
+}
+
+function gerarIA(){
+  const p=prompt("Descreva o site:");
+  if(!p)return;
+  htmlCode.value=`<h1>Site Gerado Offline</h1><p>${p}</p>`;
+  cssCode.value=`body{background:#050715;color:white;text-align:center;font-family:Inter;}`;
+  jsCode.value=`console.log("Gerado offline");`;
+  runCode();
+}
+
+function loadSaved(){
+  htmlCode.value=localStorage.getItem('cv_html')||"<h1>Olá mundo</h1>";
+  cssCode.value=localStorage.getItem('cv_css')||"body{text-align:center;font-family:Inter;}";
+  jsCode.value=localStorage.getItem('cv_js')||"console.log('Olá CodeVerse!')";
+}
+
+loadSaved();
+runCode();
+document.getElementById('runBtn').onclick=runCode;
+document.getElementById('saveBtn').onclick=saveProject;
+document.getElementById('downloadBtn').onclick=downloadHTML;
+document.getElementById('aiBtn').onclick=gerarIA;
+</script>
+</body>
+</html>

@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CodeVerse Pro — Início</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent-a:#5ef0ff;
+  --accent-b:#8b5cf6;
+  --muted:#cfeaf2;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{
+  height:100%;
+  font-family:'Inter',sans-serif;
+  overflow:hidden;
+  color:var(--accent-a);
+  background: linear-gradient(135deg, #050715, #0c1b3a, #241b52);
+  background-size: 400% 400%;
+  animation: gradientMove 10s ease infinite;
+}
+
+@keyframes gradientMove {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+/* Fundo vídeo */
+video.bg{
+  position:fixed;top:0;left:0;width:100%;height:100%;object-fit:cover;
+  opacity:0.25;
+  z-index:-3;
+}
+.overlay{
+  position:fixed;inset:0;
+  background:radial-gradient(circle at 50% 50%,rgba(0,0,0,0.2),rgba(0,0,0,0.6));
+  z-index:-2;
+}
+
+/* Partículas */
+canvas#particles{
+  position:fixed;
+  top:0;left:0;width:100%;height:100%;
+  z-index:-1;
+  pointer-events:none;
+}
+
+/* Layout principal */
+.container{
+  display:grid;
+  grid-template-columns:260px 1fr;
+  height:100vh;
+  gap:20px;
+  padding:18px;
+  transition:all .3s;
+}
+
+/* Sidebar */
+.sidebar {
+  background: rgba(15, 25, 50, 0.7);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 24px 20px;
+  border: 1px solid rgba(94,240,255,0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  box-shadow: 0 0 25px rgba(94,240,255,0.15);
+  transition: all .3s ease;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+}
+
+.logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--accent-b), var(--accent-a));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #050715;
+  font-weight: 800;
+}
+
+.brand h1 {
+  font-family: 'Orbitron', sans-serif;
+  color: #fff;
+  font-size: 17px;
+  margin: 0;
+}
+
+.brand p {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  width: 100%;
+}
+
+.nav button {
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all .3s ease;
+}
+
+.nav button:hover {
+  background: linear-gradient(90deg, rgba(94,240,255,0.15), rgba(139,92,246,0.15));
+  color: #fff;
+  box-shadow: 0 0 10px rgba(94,240,255,0.4);
+}
+
+.nav button.active {
+  background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+  color: #050715;
+  box-shadow: 0 0 20px rgba(94,240,255,0.6);
+}
+
+.footer {
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: auto;
+}
+
+/* Main */
+main{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  position:relative;
+  z-index:1;
+  padding:0 20px;
+}
+.header-actions{
+  position:absolute;top:20px;right:20px;display:flex;gap:10px;
+}
+.chip{
+  background:rgba(255,255,255,0.12);
+  padding:8px 14px;border-radius:999px;
+  font-size:13px;color:#fff;
+  backdrop-filter:blur(4px);
+  font-weight:600;
+}
+
+/* Texto central */
+h1{
+  font-family:'Orbitron',sans-serif;
+  font-size:48px;
+  background:linear-gradient(90deg,var(--accent-a),var(--accent-b));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 30px rgba(94,240,255,0.8);
+  animation:fadeIn 2s ease;
+}
+.subtitle{
+  font-size:18px;color:#eafcff;margin-top:14px;animation:fadeIn 3s ease;
+}
+.words span{
+  display:none;
+  font-weight:600;
+  color:#fff;
+  font-size:20px;
+  margin-top:20px;
+  text-shadow:0 0 20px var(--accent-b);
+}
+.words span.active{display:inline-block;animation:fadeWord 1s ease;}
+@keyframes fadeWord{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* Botão */
+.button-enter{
+  margin-top:40px;
+  padding:14px 40px;
+  font-size:18px;
+  border:none;
+  border-radius:50px;
+  color:#050715;
+  background:linear-gradient(90deg,var(--accent-a),var(--accent-b));
+  cursor:pointer;
+  box-shadow:0 0 25px rgba(94,240,255,0.5);
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+  font-weight:700;
+}
+.button-enter:hover{
+  transform:scale(1.05);
+  box-shadow:0 0 35px rgba(94,240,255,0.8);
+}
+
+/* Responsivo */
+@media (max-width: 768px){
+  body{overflow:auto;}
+  .container{
+    grid-template-columns:1fr;
+    grid-template-rows:auto 1fr;
+    gap:10px;
+    padding:10px;
+  }
+  .sidebar{
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    border-radius:15px;
+    padding:12px 16px;
+  }
+  .nav{
+    flex-direction:row;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .nav button{
+    padding:8px 10px;
+    font-size:12px;
+  }
+  .footer{display:none;}
+  main{
+    margin-top:30px;
+  }
+  h1{font-size:34px;}
+  .subtitle{font-size:15px;}
+}
+
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+</style>
+</head>
+<body>
+
+<video class="bg" autoplay muted loop>
+  <source src="grok-video-def3403b-fc4f-4f54-8bfa-f76107c1588f.mp4" type="video/mp4">
+</video>
+<div class="overlay"></div>
+<canvas id="particles"></canvas>
+
+<div class="container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">CV</div>
+      <div>
+        <h1>CodeVerse Pro</h1>
+        <p>Plataforma Inteligente</p>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button onclick="window.location.href='index.html'">Início</button>
+      <button onclick="window.location.href='aprendizado.index.html'">Aprendizado</button>
+      <button onclick="window.location.href='Mentor.index.html'">Mentor IA</button>
+      <button onclick="window.location.href='site.index.html'">WebVerse</button>
+      <button onclick="window.location.href='codestudio.index.html'">Code Studio</button>
+    </nav>
+
+    <div class="footer">
+      <p>visitante</p>
+      <p id="timeNow"></p>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main>
+    <div class="header-actions">
+      <div class="chip" id="dateNow"></div>
+      <div class="chip" id="hourNow"></div>
+    </div>
+
+    <h1>🚀 Bem-vindo ao CodeVerse Pro</h1>
+    <p class="subtitle">Entre no universo da criação e inovação com tecnologia e IA ⚡</p>
+
+    <div class="words">
+      <span class="active">✨ Criar</span>
+      <span>Da imaginação ao código, da ideia à inovação.</span>
+      <span>Domine o futuro digital, um projeto de cada vez.</span>
+      <span>Aprenda, crie e publique com inteligência artificial.</span>
+      <span>Transforme conhecimento em poder criativo.</span>
+      <span>Sua mente. Sua IA. Seu próximo grande projeto.</span>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// Atualiza hora e data
+function updateDateTime(){
+  const d=new Date();
+  document.getElementById('hourNow').textContent=d.toLocaleTimeString();
+  document.getElementById('dateNow').textContent=d.toLocaleDateString('pt-BR');
+}
+setInterval(updateDateTime,1000);
+updateDateTime();
+
+// Texto alternando
+const words=document.querySelectorAll('.words span');
+let index=0;
+setInterval(()=>{
+  words[index].classList.remove('active');
+  index=(index+1)%words.length;
+  words[index].classList.add('active');
+},2500);
+
+// Partículas
+const c=document.getElementById('particles');
+const ctx=c.getContext('2d');
+let w,h,particles=[];
+function resize(){w=c.width=innerWidth;h=c.height=innerHeight;}
+window.addEventListener('resize',resize);resize();
+function initParticles(){
+  particles=[];
+  for(let i=0;i<80;i++){
+    particles.push({
+      x:Math.random()*w,
+      y:Math.random()*h,
+      r:Math.random()*2+1,
+      d:Math.random()*0.8+0.2
+    });
+  }
+}
+function draw(){
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle='rgba(94,240,255,0.8)';
+  particles.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+  });
+  move();
+  requestAnimationFrame(draw);
+}
+function move(){
+  particles.forEach(p=>{
+    p.y+=p.d;
+    if(p.y>h)p.y=0,p.x=Math.random()*w;
+  });
+}
+initParticles();draw();
+
+function entrar(){
+  alert('🎉 Bem-vindo à CodeVerse Pro!');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CodeVerse Pro — Mentor IA</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --accent-a:#5ef0ff;
+  --accent-b:#8b5cf6;
+  --muted:#9fb3c8;
+}
+
+* { box-sizing:border-box; margin:0; padding:0; }
+
+body {
+  font-family:'Inter',sans-serif;
+  color:var(--accent-a);
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:18px;
+  padding:18px;
+  min-height:100vh;
+  background:linear-gradient(135deg,#05071a 0%,#0a0433 50%,#130b4a 100%);
+  overflow:hidden;
+}
+
+/* ==== SIDEBAR ==== */
+.sidebar {
+  background:rgba(10,15,35,0.8);
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(94,240,255,0.25);
+  border-radius:20px;
+  padding:24px 16px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height:90vh;
+  transition:all 0.3s ease;
+}
+
+.brand {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:30px;
+}
+
+.brand .logo {
+  width:50px;
+  height:50px;
+  border-radius:14px;
+  background:linear-gradient(135deg,var(--accent-b),var(--accent-a));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  color:#05101a;
+  font-size:18px;
+}
+
+.brand h1 {
+  font-size:18px;
+  color:#fff;
+  margin:0;
+}
+
+.brand p {
+  font-size:13px;
+  color:var(--muted);
+  margin:2px 0 0;
+}
+
+.nav {
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.nav button {
+  padding:12px 16px;
+  border:none;
+  background:transparent;
+  color:#c7d2fe;
+  border-radius:10px;
+  text-align:left;
+  cursor:pointer;
+  font-weight:600;
+  font-size:14px;
+  transition:all 0.3s ease;
+}
+
+.nav button:hover {
+  background:linear-gradient(90deg,rgba(94,240,255,0.08),rgba(139,92,246,0.08));
+  color:var(--accent-a);
+  transform:translateX(3px);
+}
+
+.nav button.active {
+  background:linear-gradient(90deg,var(--accent-a),var(--accent-b));
+  color:#050715;
+  font-weight:700;
+  box-shadow:0 0 8px rgba(94,240,255,0.3);
+}
+
+.sidebar .footer {
+  font-size:13px;
+  color:var(--muted);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:30px;
+  padding-top:10px;
+  border-top:1px solid rgba(255,255,255,0.05);
+}
+
+/* ==== MAIN ==== */
+main {
+  background:rgba(255,255,255,0.06);
+  border-radius:16px;
+  padding:18px;
+  backdrop-filter:blur(8px);
+  overflow:auto;
+  color:#eafcff;
+}
+
+.chat-area {
+  display:grid;
+  grid-template-columns:1fr 360px;
+  gap:12px;
+  align-items:start;
+}
+
+.conv {
+  background:rgba(255,255,255,0.08);
+  padding:12px;
+  border-radius:10px;
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+
+.messages {
+  flex:1;
+  overflow:auto;
+  padding:8px;
+  border-radius:8px;
+  background:rgba(255,255,255,0.03);
+}
+
+.msg {
+  margin-bottom:8px;
+  padding:8px;
+  border-radius:8px;
+}
+
+.msg.user { background:transparent; color:var(--muted); }
+.msg.ai { background:linear-gradient(90deg,rgba(139,92,246,0.08),rgba(94,240,255,0.05)); color:#eafcff; }
+
+.input-row {
+  display:flex;
+  gap:8px;
+  margin-top:8px;
+}
+
+.input-row input {
+  flex:1;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.06);
+  background:transparent;
+  color:var(--accent-a);
+}
+
+button.primary {
+  background:linear-gradient(90deg,var(--accent-a),var(--accent-b));
+  border:0;
+  padding:8px 12px;
+  border-radius:8px;
+  color:#050715;
+  font-weight:700;
+  cursor:pointer;
+  transition:transform 0.2s ease;
+}
+button.primary:hover { transform:scale(1.05); }
+
+.history {
+  background:rgba(255,255,255,0.08);
+  padding:12px;
+  border-radius:10px;
+  overflow:auto;
+  max-height:500px;
+}
+
+.history-item {
+  font-size:13px;
+  color:#9fb3c8;
+  margin-bottom:8px;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  padding-bottom:6px;
+}
+
+/* ==== RESPONSIVO ==== */
+@media (max-width:1000px) {
+  body {
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+  .sidebar {
+    flex-direction:row;
+    align-items:center;
+    justify-content:space-between;
+    min-height:auto;
+    border-radius:14px;
+    padding:12px;
+    overflow-x:auto;
+  }
+  .brand { margin-bottom:0; }
+  .nav {
+    flex-direction:row;
+    gap:8px;
+  }
+  .nav button {
+    font-size:13px;
+    padding:10px 12px;
+  }
+  .sidebar .footer { display:none; }
+  .chat-area {
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+  <div>
+    <div class="brand">
+      <div class="logo">CV</div>
+      <div>
+        <h1>CodeVerse Pro</h1>
+        <p>Plataforma Inteligente</p>
+      </div>
+    </div>
+    <nav class="nav">
+      <button onclick="window.location.href='inicial.index.html'"> Início</button>
+      <button onclick="window.location.href='aprendizado.index.html'"> Aprendizado</button>
+      <button class="active"> Mentor IA</button>
+      <button onclick="window.location.href='site.index.html'"> WebVerse</button>
+      <button onclick="window.location.href='codestudio.index.html'"> Code Studio</button>
+    </nav>
+  </div>
+  <div class="footer">
+    <div>visitante</div>
+    <div id="timeNow">--:--:--</div>
+  </div>
+</aside>
+
+<main>
+  <section class="chat-area">
+    <div class="conv">
+      <div style="font-weight:700;color:#fff;margin-bottom:8px;">Chat do Mentor</div>
+      <div class="messages" id="messages"></div>
+      <div class="input-row">
+        <input id="userInput" type="text" placeholder="Pergunte algo..." />
+        <button id="sendBtn" class="primary">Enviar</button>
+      </div>
+    </div>
+
+    <div class="history" id="historyPanel">
+      <div style="font-weight:700;color:#fff;margin-bottom:6px;">🕓 Histórico</div>
+      <div id="history"></div>
+      <button id="clearHistory" class="primary" style="margin-top:10px;">Limpar histórico</button>
+    </div>
+  </section>
+</main>
+
+<script>
+function el(id){return document.getElementById(id);}
+function pushMsg(role,text){
+  const div=document.createElement('div');
+  div.className='msg '+role;
+  div.innerHTML='<strong>'+ (role==='user'?'Você':'Mentor') +':</strong> '+text;
+  el('messages').appendChild(div);
+  el('messages').scrollTop=el('messages').scrollHeight;
+}
+function saveHistory(role,text){
+  const hist=JSON.parse(localStorage.getItem('mentor_history')||'[]');
+  hist.push({role,text,date:new Date().toLocaleTimeString()});
+  localStorage.setItem('mentor_history',JSON.stringify(hist));
+  renderHistory();
+}
+function renderHistory(){
+  const list=JSON.parse(localStorage.getItem('mentor_history')||'[]');
+  el('history').innerHTML=list.map(m=>`
+    <div class="history-item"><b>[${m.date}]</b> ${m.role==='user'?'🧑‍💻':'🤖'} ${m.text}</div>
+  `).join('');
+}
+async function sendMessage(){
+  const text=el('userInput').value.trim();
+  if(!text)return;
+  el('userInput').value='';
+  pushMsg('user',text);
+  saveHistory('user',text);
+  try{
+    const res=await fetch('/.netlify/functions/grok',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message:text})
+    });
+    const data=await res.json();
+    const reply=data.reply||'Sem resposta.';
+    pushMsg('ai',reply);
+    saveHistory('ai',reply);
+  }catch(e){
+    const err='⚠️ Erro de conexão.';
+    pushMsg('ai',err);
+    saveHistory('ai',err);
+  }
+}
+el('sendBtn').onclick=sendMessage;
+el('userInput').addEventListener('keypress',e=>{if(e.key==='Enter')sendMessage();});
+el('clearHistory').onclick=()=>{localStorage.removeItem('mentor_history');renderHistory();};
+renderHistory();
+function pad(n){return n<10?'0'+n:n;}
+setInterval(()=>{const d=new Date();el('timeNow').textContent=pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds());},1000);
+</script>
+</body>
+</html>
